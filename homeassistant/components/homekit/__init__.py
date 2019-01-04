@@ -148,6 +148,9 @@ def get_accessory(hass, driver, state, aid, config):
         if feature_list and \
                 validate_media_player_features(state, feature_list):
             a_type = 'MediaPlayer'
+    
+    elif state.domain == 'vacuum':
+        a_type = 'Vacuum'
 
     elif state.domain == 'sensor':
         device_class = state.attributes.get(ATTR_DEVICE_CLASS)
@@ -249,7 +252,7 @@ class HomeKit():
         from . import (  # noqa F401
             type_covers, type_fans, type_lights, type_locks,
             type_media_players, type_security_systems, type_sensors,
-            type_switches, type_thermostats)
+            type_switches, type_thermostats, type_vacuum)
 
         for state in self.hass.states.all():
             self.add_bridge_accessory(state)
